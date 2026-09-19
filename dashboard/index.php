@@ -11,12 +11,15 @@ $page_title = 'Dashboard';
 
 /*
 |--------------------------------------------------------------------------
-| Statistik Dashboard
+| STATISTIK DASHBOARD
 |--------------------------------------------------------------------------
 */
 
 $total_products = (int) $pdo
-    ->query("SELECT COUNT(*) FROM products")
+    ->query("
+        SELECT COUNT(*)
+        FROM products
+    ")
     ->fetchColumn();
 
 
@@ -50,7 +53,7 @@ $out_stock = (int) $pdo
 
 /*
 |--------------------------------------------------------------------------
-| Transaksi Terbaru
+| TRANSAKSI STOK TERBARU
 |--------------------------------------------------------------------------
 */
 
@@ -62,10 +65,13 @@ $recent_movements = $pdo
             sm.quantity,
             sm.description,
             sm.created_at,
+
             p.code,
             p.name,
             p.unit,
+
             u.name AS user_name
+
         FROM stock_movements sm
 
         INNER JOIN products p
@@ -74,12 +80,20 @@ $recent_movements = $pdo
         LEFT JOIN users u
             ON u.id = sm.user_id
 
-        ORDER BY sm.created_at DESC, sm.id DESC
+        ORDER BY
+            sm.created_at DESC,
+            sm.id DESC
 
         LIMIT 8
     ")
     ->fetchAll();
 
+
+/*
+|--------------------------------------------------------------------------
+| HEADER
+|--------------------------------------------------------------------------
+*/
 
 require_once __DIR__ . '/../includes/header.php';
 
@@ -87,163 +101,268 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
 ?>
 
+
 <main class="content">
 
-    <!-- HEADER -->
 
-    <div class="page-header">
+    <!-- =====================================================
+         TOP HEADER
+    ====================================================== -->
 
-        <div>
+    <div class="top-header">
 
-            <h1 class="page-title">
+
+        <div class="top-header-title">
+
+            <h5>
                 Dashboard
-            </h1>
+            </h5>
 
-            <p class="page-subtitle">
-                Ringkasan kondisi inventori Snack Mbak Tanti.
-            </p>
-
-        </div>
-
-        <div>
-
-            <span class="text-secondary small">
-
-                <?= date('d M Y') ?>
-
+            <span>
+                Sistem Informasi Manajemen Inventori
             </span>
 
         </div>
 
+
+        <div class="top-header-user">
+
+
+            <div class="top-user-avatar">
+
+                <?= strtoupper(
+                    substr(
+                        $_SESSION['user']['name'] ?? 'A',
+                        0,
+                        1
+                    )
+                ) ?>
+
+            </div>
+
+
+            <div class="top-user-info">
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $_SESSION['user']['name']
+                        ?? 'Administrator'
+                    ) ?>
+
+                </strong>
+
+
+                <small>
+
+                    <?= htmlspecialchars(
+                        ucfirst(
+                            $_SESSION['user']['role']
+                            ?? 'admin'
+                        )
+                    ) ?>
+
+                </small>
+
+            </div>
+
+
+        </div>
+
+
     </div>
 
 
-    <!-- STATISTICS -->
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    
+
+
+    <!-- =====================================================
+         STATISTIK
+    ====================================================== -->
 
     <div class="row g-3 mb-4">
 
 
-        <!-- TOTAL -->
+        <!-- TOTAL BARANG -->
 
         <div class="col-xl-3 col-md-6">
 
             <div class="dashboard-card">
 
+
                 <div class="card-label">
+
                     Total Barang
+
                 </div>
+
 
                 <div class="card-value">
+
                     <?= $total_products ?>
+
                 </div>
 
+
                 <div class="card-description">
+
                     Seluruh barang terdaftar
+
                 </div>
+
 
             </div>
 
         </div>
 
 
-        <!-- NORMAL -->
+        <!-- STOK NORMAL -->
 
         <div class="col-xl-3 col-md-6">
 
             <div class="dashboard-card">
 
+
                 <div class="card-label">
+
                     Stok Normal
+
                 </div>
+
 
                 <div class="card-value text-success">
+
                     <?= $normal_stock ?>
+
                 </div>
 
+
                 <div class="card-description">
+
                     Stok di atas minimum
+
                 </div>
+
 
             </div>
 
         </div>
 
 
-        <!-- LOW -->
+        <!-- STOK MENIPIS -->
 
         <div class="col-xl-3 col-md-6">
 
             <div class="dashboard-card">
 
+
                 <div class="card-label">
+
                     Stok Menipis
+
                 </div>
+
 
                 <div class="card-value text-warning">
+
                     <?= $low_stock ?>
+
                 </div>
 
+
                 <div class="card-description">
+
                     Perlu diperhatikan
+
                 </div>
+
 
             </div>
 
         </div>
 
 
-        <!-- EMPTY -->
+        <!-- STOK HABIS -->
 
         <div class="col-xl-3 col-md-6">
 
             <div class="dashboard-card">
 
+
                 <div class="card-label">
+
                     Stok Habis
+
                 </div>
+
 
                 <div class="card-value text-danger">
+
                     <?= $out_stock ?>
+
                 </div>
 
+
                 <div class="card-description">
+
                     Barang tanpa stok
+
                 </div>
+
 
             </div>
 
         </div>
+
 
     </div>
 
 
-    <!-- RECENT TRANSACTIONS -->
+    <!-- =====================================================
+         TRANSAKSI TERBARU
+    ====================================================== -->
 
     <div class="table-card">
 
+
         <div class="table-card-header">
 
+
             <h5>
+
                 Transaksi Stok Terbaru
+
             </h5>
+
 
             <a
                 href="<?= BASE_URL ?>/stock/history.php"
                 class="btn btn-sm btn-outline-primary"
             >
+
                 Lihat Semua
+
             </a>
+
 
         </div>
 
 
         <div class="table-card-body">
 
+
             <?php if ($recent_movements): ?>
+
 
                 <div class="table-responsive">
 
+
                     <table class="table">
+
 
                         <thead>
 
@@ -280,101 +399,171 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
                         <tbody>
 
-                        <?php foreach ($recent_movements as $movement): ?>
+
+                        <?php foreach (
+                            $recent_movements
+                            as $movement
+                        ): ?>
+
 
                             <tr>
 
+
+                                <!-- TANGGAL -->
+
                                 <td>
+
                                     <?= date(
                                         'd/m/Y H:i',
-                                        strtotime($movement['created_at'])
+                                        strtotime(
+                                            $movement['created_at']
+                                        )
                                     ) ?>
+
                                 </td>
 
 
+                                <!-- BARANG -->
+
                                 <td>
 
+
                                     <strong>
-                                        <?= htmlspecialchars($movement['name']) ?>
+
+                                        <?= htmlspecialchars(
+                                            $movement['name']
+                                        ) ?>
+
                                     </strong>
+
 
                                     <br>
 
-                                    <small class="text-secondary">
-                                        <?= htmlspecialchars($movement['code']) ?>
+
+                                    <small
+                                        class="text-secondary"
+                                    >
+
+                                        <?= htmlspecialchars(
+                                            $movement['code']
+                                        ) ?>
+
                                     </small>
+
 
                                 </td>
 
 
+                                <!-- JENIS -->
+
                                 <td>
 
-                                    <?php if ($movement['type'] === 'IN'): ?>
 
-                                        <span class="badge text-bg-success">
+                                    <?php if (
+                                        $movement['type'] === 'IN'
+                                    ): ?>
+
+
+                                        <span
+                                            class="badge text-bg-success"
+                                        >
+
                                             Masuk
+
                                         </span>
+
 
                                     <?php else: ?>
 
-                                        <span class="badge text-bg-danger">
+
+                                        <span
+                                            class="badge text-bg-danger"
+                                        >
+
                                             Keluar
+
                                         </span>
+
 
                                     <?php endif; ?>
 
-                                </td>
-
-
-                                <td>
-
-                                    <?= (int) $movement['quantity'] ?>
-
-                                    <?= htmlspecialchars($movement['unit']) ?>
 
                                 </td>
 
 
+                                <!-- JUMLAH -->
+
                                 <td>
+
+                                    <?= (int)
+                                        $movement['quantity']
+                                    ?>
 
                                     <?= htmlspecialchars(
-                                        $movement['description'] ?? '-'
+                                        $movement['unit']
                                     ) ?>
 
                                 </td>
 
 
+                                <!-- KETERANGAN -->
+
                                 <td>
 
                                     <?= htmlspecialchars(
-                                        $movement['user_name'] ?? '-'
+                                        $movement['description']
+                                        ?? '-'
                                     ) ?>
 
                                 </td>
+
+
+                                <!-- USER -->
+
+                                <td>
+
+                                    <?= htmlspecialchars(
+                                        $movement['user_name']
+                                        ?? '-'
+                                    ) ?>
+
+                                </td>
+
 
                             </tr>
 
+
                         <?php endforeach; ?>
+
 
                         </tbody>
 
+
                     </table>
+
 
                 </div>
 
+
             <?php else: ?>
+
 
                 <div class="empty-state">
 
                     Belum ada transaksi stok.
 
+
                 </div>
+
 
             <?php endif; ?>
 
+
         </div>
 
+
     </div>
+
 
 </main>
 
