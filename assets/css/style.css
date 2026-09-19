@@ -16,21 +16,28 @@ body {
 }
 
 
-/* =========================
+/* =========================================================
    SIDEBAR
-========================= */
+========================================================= */
 
 .sidebar {
     width: 250px;
     min-height: 100vh;
+
     background: #ffffff;
+
     border-right: 1px solid #e5e7eb;
+
     display: flex;
     flex-direction: column;
+
     position: fixed;
+
     left: 0;
     top: 0;
     bottom: 0;
+
+    z-index: 1000;
 }
 
 
@@ -38,37 +45,52 @@ body {
 
 .sidebar-brand {
     height: 75px;
+
     padding: 16px 18px;
+
     display: flex;
     align-items: center;
+
     gap: 12px;
+
     border-bottom: 1px solid #f0f0f0;
 }
 
 .brand-icon {
     width: 40px;
     height: 40px;
+
     border-radius: 10px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: #2563eb;
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+
     color: #ffffff;
 
     font-size: 14px;
     font-weight: 700;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.20);
 }
 
 .brand-title {
     font-size: 15px;
     font-weight: 700;
+
     color: #111827;
 }
 
 .sidebar-brand small {
     color: #9ca3af;
+
     font-size: 11px;
 }
 
@@ -77,7 +99,9 @@ body {
 
 .sidebar-menu {
     padding: 20px 12px;
+
     flex: 1;
+
     overflow-y: auto;
 }
 
@@ -85,44 +109,54 @@ body {
     padding: 14px 12px 7px;
 
     font-size: 10px;
+
     font-weight: 700;
 
     color: #9ca3af;
+
     letter-spacing: .08em;
 }
 
 .menu-item {
     display: flex;
     align-items: center;
+
     gap: 12px;
 
     padding: 10px 12px;
+
     margin-bottom: 4px;
 
     border-radius: 8px;
 
     text-decoration: none;
+
     color: #4b5563;
 
     font-size: 14px;
 
-    transition: .2s;
+    transition: all .2s ease;
 }
 
 .menu-item span {
     width: 20px;
+
     text-align: center;
+
     font-size: 16px;
 }
 
 .menu-item:hover {
     background: #f3f6fb;
+
     color: #2563eb;
 }
 
 .menu-item.active {
     background: #eff6ff;
+
     color: #2563eb;
+
     font-weight: 600;
 }
 
@@ -131,13 +165,16 @@ body {
 
 .sidebar-footer {
     border-top: 1px solid #f0f0f0;
+
     padding: 15px;
 }
 
 .user-box {
     display: flex;
     align-items: center;
+
     gap: 10px;
+
     margin-bottom: 12px;
 }
 
@@ -152,6 +189,7 @@ body {
     justify-content: center;
 
     background: #2563eb;
+
     color: #ffffff;
 
     font-weight: 700;
@@ -160,30 +198,40 @@ body {
 .user-info {
     display: flex;
     flex-direction: column;
+
     min-width: 0;
 }
 
 .user-info strong {
     font-size: 13px;
+
     white-space: nowrap;
+
     overflow: hidden;
+
     text-overflow: ellipsis;
 }
 
 .user-info small {
     color: #9ca3af;
+
     font-size: 11px;
 }
 
 .logout-link {
     display: block;
+
     text-decoration: none;
+
     color: #dc2626;
 
     font-size: 13px;
 
     padding: 8px 10px;
+
     border-radius: 7px;
+
+    transition: all .2s ease;
 }
 
 .logout-link:hover {
@@ -191,47 +239,233 @@ body {
 }
 
 
-/* =========================
-   CONTENT
-========================= */
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
 
 .content {
     margin-left: 250px;
+
     width: calc(100% - 250px);
+
     min-height: 100vh;
+
     padding: 28px;
 }
 
 
-/* HEADER */
+/* =========================================================
+   TOP HEADER - BLUE GRADIENT CARD
+========================================================= */
+
+.top-header {
+    min-height: 90px;
+
+    background: linear-gradient(
+        135deg,
+        #1d4ed8 0%,
+        #2563eb 45%,
+        #38bdf8 100%
+    );
+
+    border-radius: 16px;
+
+    padding: 18px 24px;
+
+    margin-bottom: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    position: relative;
+
+    overflow: hidden;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 25px rgba(37, 99, 235, 0.20);
+}
+
+
+/* DECORATION */
+
+.top-header::before {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    right: 80px;
+
+    top: -130px;
+}
+
+.top-header::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    right: -30px;
+
+    bottom: -100px;
+}
+
+
+/* HEADER TITLE */
+
+.top-header-title {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.top-header-title h5 {
+    margin: 0;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+.top-header-title span {
+    margin-top: 4px;
+
+    font-size: 12px;
+
+    color: rgba(255, 255, 255, 0.82);
+}
+
+
+/* HEADER USER */
+
+.top-header-user {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 7px 13px 7px 7px;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    border: 1px solid rgba(255, 255, 255, 0.20);
+
+    border-radius: 50px;
+
+    backdrop-filter: blur(8px);
+}
+
+.top-user-avatar {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    color: #2563eb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, .10);
+}
+
+.top-user-info {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.top-user-info strong {
+    font-size: 13px;
+
+    color: #ffffff;
+}
+
+.top-user-info small {
+    font-size: 11px;
+
+    color: rgba(255, 255, 255, 0.78);
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
 
 .page-header {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .page-title {
     margin: 0;
-    font-size: 25px;
+
+    font-size: 24px;
+
     font-weight: 700;
+
+    color: #111827;
 }
 
 .page-subtitle {
     margin: 5px 0 0;
+
     color: #6b7280;
+
     font-size: 14px;
 }
 
 
-/* =========================
-   CARDS
-========================= */
+/* =========================================================
+   DASHBOARD STATISTICS
+========================================================= */
 
 .dashboard-card {
     background: #ffffff;
+
     border: 1px solid #edf0f5;
 
     border-radius: 12px;
@@ -242,33 +476,53 @@ body {
 
     box-shadow:
         0 2px 8px rgba(0, 0, 0, .03);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
-.dashboard-card .card-label {
+.dashboard-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, .06);
+}
+
+.card-label {
     color: #6b7280;
+
     font-size: 13px;
+
     margin-bottom: 8px;
 }
 
-.dashboard-card .card-value {
+.card-value {
     font-size: 28px;
+
     font-weight: 700;
+
     color: #111827;
 }
 
-.dashboard-card .card-description {
+.card-description {
     margin-top: 5px;
+
     color: #9ca3af;
+
     font-size: 12px;
 }
 
 
-/* TABLE */
+/* =========================================================
+   TABLE CARD
+========================================================= */
 
 .table-card {
     background: #ffffff;
 
     border: 1px solid #edf0f5;
+
     border-radius: 12px;
 
     box-shadow:
@@ -283,13 +537,17 @@ body {
     border-bottom: 1px solid #edf0f5;
 
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 }
 
 .table-card-header h5 {
     margin: 0;
+
     font-size: 15px;
+
     font-weight: 700;
 }
 
@@ -303,36 +561,66 @@ body {
 
 .table th {
     color: #6b7280;
+
     font-size: 12px;
+
     font-weight: 600;
 
     background: #fafafa;
 
     padding: 13px 18px;
+
+    white-space: nowrap;
 }
 
 .table td {
     padding: 13px 18px;
+
     vertical-align: middle;
 
     font-size: 13px;
 }
 
 
-/* EMPTY */
+/* =========================================================
+   EMPTY STATE
+========================================================= */
 
 .empty-state {
     text-align: center;
+
     padding: 45px 20px;
+
     color: #9ca3af;
 }
 
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* =========================================================
+   BUTTON
+========================================================= */
 
-@media (max-width: 768px) {
+.btn {
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background: #2563eb;
+
+    border-color: #2563eb;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+
+    border-color: #1d4ed8;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 992px) {
 
     .sidebar {
         width: 220px;
@@ -340,8 +628,102 @@ body {
 
     .content {
         margin-left: 220px;
+
         width: calc(100% - 220px);
+
         padding: 20px;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .sidebar-brand {
+        justify-content: center;
+
+        padding: 15px 8px;
+    }
+
+    .sidebar-brand > div:last-child {
+        display: none;
+    }
+
+    .menu-section {
+        display: none;
+    }
+
+    .menu-item {
+        justify-content: center;
+
+        padding: 12px 5px;
+    }
+
+    .menu-item span {
+        margin: 0;
+    }
+
+    .menu-item {
+        font-size: 0;
+    }
+
+    .menu-item span {
+        font-size: 18px;
+    }
+
+    .sidebar-footer {
+        padding: 10px 5px;
+    }
+
+    .user-info,
+    .logout-link {
+        display: none;
+    }
+
+    .user-box {
+        justify-content: center;
+    }
+
+    .content {
+        margin-left: 70px;
+
+        width: calc(100% - 70px);
+
+        padding: 15px;
+    }
+
+    .top-header {
+        min-height: 80px;
+
+        padding: 15px 18px;
+    }
+
+    .top-header-title h5 {
+        font-size: 17px;
+    }
+
+    .top-header-title span {
+        font-size: 10px;
+    }
+
+    .top-user-info {
+        display: none;
+    }
+
+    .top-header-user {
+        padding: 5px;
+    }
+
+    .page-header {
+        align-items: flex-start;
+
+        gap: 10px;
+
+        flex-direction: column;
     }
 
 }
