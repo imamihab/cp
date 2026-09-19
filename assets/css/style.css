@@ -1,0 +1,1 @@
+body{min-height:100vh}.sidebar{width:250px;min-height:100vh;background:#fff;border-right:1px solid #e5e7eb}.sidebar .nav-link{color:#374151;border-radius:8px}.sidebar .nav-link:hover{background:#f3f4f6}.content{flex:1;min-width:0}.card{border:0;box-shadow:0 2px 12px rgba(0,0,0,.05)}
