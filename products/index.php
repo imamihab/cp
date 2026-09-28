@@ -475,8 +475,18 @@ $categories = $pdo
 |--------------------------------------------------------------------------
 */
 
-$products = $pdo
-    ->query("
+$keyword = trim($_GET['q'] ?? '');
+$filter_category = (int) ($_GET['category_id'] ?? 0);
+$filter_status = $_GET['status'] ?? 'all';
+$where = [];
+$params = [];
+if ($keyword !== '') { $where[] = '(p.code LIKE ? OR p.name LIKE ?)'; $params[] = '%' . $keyword . '%'; $params[] = '%' . $keyword . '%'; }
+if ($filter_category > 0) { $where[] = 'p.category_id = ?'; $params[] = $filter_category; }
+if ($filter_status === 'normal') $where[] = 'p.stock > p.minimum_stock';
+elseif ($filter_status === 'menipis') $where[] = 'p.stock > 0 AND p.stock <= p.minimum_stock';
+elseif ($filter_status === 'habis') $where[] = 'p.stock = 0';
+$sql_where = $where ? 'WHERE ' . implode(' AND ', $where) : '';
+$stmt = $pdo->prepare("
         SELECT
             p.id,
             p.category_id,
@@ -495,9 +505,11 @@ $products = $pdo
         LEFT JOIN categories c
             ON c.id = p.category_id
 
+        $sql_where
         ORDER BY p.name ASC
-    ")
-    ->fetchAll();
+    ");
+$stmt->execute($params);
+$products = $stmt->fetchAll();
 
 
 /*
@@ -516,83 +528,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
 <main class="content">
 
 
-    <!-- =====================================================
-         TOP HEADER
-    ====================================================== -->
-
-    <div class="top-header">
-
-
-        <div class="top-header-title">
-
-            <h5>
-
-                <?= htmlspecialchars(
-                    $page_title
-                ) ?>
-
-            </h5>
-
-
-            <span>
-
-                Sistem Informasi Manajemen Inventori
-
-            </span>
-
-        </div>
-
-
-        <div class="top-header-user">
-
-
-            <div class="top-user-avatar">
-
-                <?= strtoupper(
-                    substr(
-                        $_SESSION['user']['name']
-                        ?? 'A',
-
-                        0,
-
-                        1
-                    )
-                ) ?>
-
-            </div>
-
-
-            <div class="top-user-info">
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $_SESSION['user']['name']
-                        ?? 'Administrator'
-                    ) ?>
-
-                </strong>
-
-
-                <small>
-
-                    <?= htmlspecialchars(
-                        ucfirst(
-                            $_SESSION['user']['role']
-                            ?? 'admin'
-                        )
-                    ) ?>
-
-                </small>
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
+    <?php require_once dirname(__DIR__) . '/includes/topbar.php'; ?>
 
     <!-- =====================================================
          ALERT CREATED
@@ -745,9 +681,8 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
 
         <div>
-
-           
-
+            <h1 class="page-title">Daftar Barang</h1>
+            <p class="page-subtitle">Kelola data barang dan informasi stok.</p>
         </div>
 
 
@@ -768,6 +703,13 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
 
     </div>
+
+    <form method="GET" class="row g-2 mb-3 align-items-end">
+        <div class="col-md-5"><label class="form-label" for="productSearch">Cari barang</label><input id="productSearch" class="form-control" type="search" name="q" value="<?= htmlspecialchars($keyword) ?>" placeholder="Kode atau nama barang"></div>
+        <div class="col-md-3"><label class="form-label" for="categoryFilter">Kategori</label><select id="categoryFilter" class="form-select" name="category_id"><option value="0">Semua kategori</option><?php foreach ($categories as $category): ?><option value="<?= (int) $category['id'] ?>" <?= $filter_category === (int) $category['id'] ? 'selected' : '' ?>><?= htmlspecialchars($category['name']) ?></option><?php endforeach; ?></select></div>
+        <div class="col-md-2"><label class="form-label" for="statusFilter">Status stok</label><select id="statusFilter" class="form-select" name="status"><option value="all">Semua status</option><option value="normal" <?= $filter_status === 'normal' ? 'selected' : '' ?>>Normal</option><option value="menipis" <?= $filter_status === 'menipis' ? 'selected' : '' ?>>Menipis</option><option value="habis" <?= $filter_status === 'habis' ? 'selected' : '' ?>>Habis</option></select></div>
+        <div class="col-md-2 d-flex gap-2"><button class="btn btn-primary" type="submit">Terapkan</button><a class="btn btn-outline-secondary" href="<?= BASE_URL ?>/products/index.php">Reset</a></div>
+    </form>
 
 
     <!-- =====================================================
@@ -840,15 +782,15 @@ require_once __DIR__ . '/../includes/sidebar.php';
                                 </th>
 
                                 <th>
-                                    Satuan
-                                </th>
-
-                                <th>
                                     Stok
                                 </th>
 
                                 <th>
                                     Min. Stok
+                                </th>
+
+                                <th>
+                                    Satuan
                                 </th>
 
                                 <th>
@@ -972,17 +914,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
                                 </td>
 
 
-                                <!-- SATUAN -->
-
-                                <td>
-
-                                    <?= htmlspecialchars(
-                                        $product['unit']
-                                    ) ?>
-
-                                </td>
-
-
                                 <!-- STOK -->
 
                                 <td>
@@ -1006,6 +937,13 @@ require_once __DIR__ . '/../includes/sidebar.php';
                                         $minimum_stock
                                     ) ?>
 
+                                </td>
+
+
+                                <!-- SATUAN -->
+
+                                <td>
+                                    <?= htmlspecialchars($product['unit']) ?>
                                 </td>
 
 

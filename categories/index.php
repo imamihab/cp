@@ -343,83 +343,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
 <main class="content">
 
 
-    <!-- =====================================================
-         TOP HEADER
-    ====================================================== -->
-
-    <div class="top-header">
-
-
-        <div class="top-header-title">
-
-            <h5>
-
-                <?= htmlspecialchars(
-                    $page_title
-                ) ?>
-
-            </h5>
-
-
-            <span>
-
-                Sistem Informasi Manajemen Inventori
-
-            </span>
-
-        </div>
-
-
-        <div class="top-header-user">
-
-
-            <div class="top-user-avatar">
-
-                <?= strtoupper(
-                    substr(
-                        $_SESSION['user']['name']
-                        ?? 'A',
-
-                        0,
-
-                        1
-                    )
-                ) ?>
-
-            </div>
-
-
-            <div class="top-user-info">
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $_SESSION['user']['name']
-                        ?? 'Administrator'
-                    ) ?>
-
-                </strong>
-
-
-                <small>
-
-                    <?= htmlspecialchars(
-                        ucfirst(
-                            $_SESSION['user']['role']
-                            ?? 'admin'
-                        )
-                    ) ?>
-
-                </small>
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
+    <?php require_once dirname(__DIR__) . '/includes/topbar.php'; ?>
 
     <!-- =====================================================
          NOTIFICATION - CREATED
@@ -564,9 +488,8 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
 
         <div>
-
-           
-
+            <h1 class="page-title">Kategori</h1>
+            <p class="page-subtitle">Kelola kategori barang.</p>
         </div>
 
 
@@ -681,13 +604,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
                                 <th width="160">
 
-                                    Dibuat
-
-                                </th>
-
-
-                                <th width="160">
-
                                     Aksi
 
                                 </th>
@@ -787,23 +703,6 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
                                     </span>
 
-
-                                </td>
-
-
-                                <!-- CREATED -->
-
-                                <td>
-
-                                    <?= date(
-                                        'd/m/Y H:i',
-
-                                        strtotime(
-                                            $category[
-                                                'created_at'
-                                            ]
-                                        )
-                                    ) ?>
 
                                 </td>
 

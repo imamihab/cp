@@ -557,79 +557,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
 <main class="content stock-page">
 
 
-    <!-- =====================================================
-         TOP HEADER
-    ====================================================== -->
-
-    <div class="top-header stock-top-header">
-
-
-        <div class="top-header-title">
-
-            <h5>
-
-                Manajemen Stok
-
-            </h5>
-
-
-            <span>
-
-                Sistem Informasi Manajemen Inventori
-
-            </span>
-
-        </div>
-
-
-        <div class="top-header-user">
-
-
-            <div class="top-user-avatar">
-
-                <?= strtoupper(
-                    substr(
-                        $_SESSION['user']['name']
-                        ?? 'A',
-                        0,
-                        1
-                    )
-                ) ?>
-
-            </div>
-
-
-            <div class="top-user-info">
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $_SESSION['user']['name']
-                        ?? 'Administrator'
-                    ) ?>
-
-                </strong>
-
-
-                <small>
-
-                    <?= htmlspecialchars(
-                        ucfirst(
-                            $_SESSION['user']['role']
-                            ?? 'admin'
-                        )
-                    ) ?>
-
-                </small>
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
+    <?php require_once dirname(__DIR__) . '/includes/topbar.php'; ?>
 
     <!-- =====================================================
          ALERT SUCCESS STOK MASUK
@@ -752,9 +680,10 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
 
         <div>
-
-            
-
+            <div>
+                <h1>Manajemen Stok</h1>
+                <p>Catat dan pantau seluruh pergerakan stok barang.</p>
+            </div>
         </div>
 
 
@@ -1863,7 +1792,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
                         <h5 id="stockModalTitle">
 
-                            Stok Masuk
+                            Tambah Stok Masuk
 
                         </h5>
 
@@ -2203,7 +2132,7 @@ function openStockModal(type) {
     if (type === 'IN') {
 
         title.innerText =
-            'Stok Masuk';
+            'Tambah Stok Masuk';
 
         subtitle.innerText =
             'Tambahkan stok barang ke inventori.';
@@ -2232,7 +2161,7 @@ function openStockModal(type) {
     else {
 
         title.innerText =
-            'Stok Keluar';
+            'Tambah Stok Keluar';
 
         subtitle.innerText =
             'Kurangi stok barang dari inventori.';

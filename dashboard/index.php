@@ -22,6 +22,16 @@ $total_products = (int) $pdo
     ")
     ->fetchColumn();
 
+$total_categories = (int) $pdo
+    ->query("SELECT COUNT(*) FROM categories")
+    ->fetchColumn();
+
+$available_stock = (int) $pdo
+    ->query("SELECT COALESCE(SUM(stock), 0) FROM products")
+    ->fetchColumn();
+
+$low_stock_products = $pdo->query("SELECT code, name, stock, minimum_stock, unit FROM products WHERE stock <= minimum_stock ORDER BY stock ASC, name ASC LIMIT 6")->fetchAll();
+
 
 $normal_stock = (int) $pdo
     ->query("
@@ -105,73 +115,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
 <main class="content">
 
 
-    <!-- =====================================================
-         TOP HEADER
-    ====================================================== -->
-
-    <div class="top-header">
-
-
-        <div class="top-header-title">
-
-            <h5>
-                Dashboard
-            </h5>
-
-            <span>
-                Sistem Informasi Manajemen Inventori
-            </span>
-
-        </div>
-
-
-        <div class="top-header-user">
-
-
-            <div class="top-user-avatar">
-
-                <?= strtoupper(
-                    substr(
-                        $_SESSION['user']['name'] ?? 'A',
-                        0,
-                        1
-                    )
-                ) ?>
-
-            </div>
-
-
-            <div class="top-user-info">
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $_SESSION['user']['name']
-                        ?? 'Administrator'
-                    ) ?>
-
-                </strong>
-
-
-                <small>
-
-                    <?= htmlspecialchars(
-                        ucfirst(
-                            $_SESSION['user']['role']
-                            ?? 'admin'
-                        )
-                    ) ?>
-
-                </small>
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
+    <?php require_once dirname(__DIR__) . '/includes/topbar.php'; ?>
 
     <!-- =====================================================
          PAGE HEADER
@@ -184,12 +128,17 @@ require_once __DIR__ . '/../includes/sidebar.php';
          STATISTIK
     ====================================================== -->
 
+    <div class="dashboard-intro">
+        <h1>Dashboard</h1>
+        <p>Ringkasan kondisi inventori saat ini.</p>
+    </div>
+
     <div class="row g-3 mb-4">
 
 
         <!-- TOTAL BARANG -->
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-6 col-6">
 
             <div class="dashboard-card">
 
@@ -222,7 +171,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
         <!-- STOK NORMAL -->
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-6 col-6">
 
             <div class="dashboard-card">
 
@@ -255,7 +204,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
         <!-- STOK MENIPIS -->
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-6 col-6">
 
             <div class="dashboard-card">
 
@@ -288,7 +237,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
         <!-- STOK HABIS -->
 
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-6 col-6">
 
             <div class="dashboard-card">
 
@@ -322,9 +271,30 @@ require_once __DIR__ . '/../includes/sidebar.php';
     </div>
 
 
-    <!-- =====================================================
-         TRANSAKSI TERBARU
-    ====================================================== -->
+    <div class="row g-3 mb-4">
+        <div class="col-lg-4">
+            <div class="dashboard-card h-100">
+                <div class="card-label">Kategori</div>
+                <div class="card-value"><?= $total_categories ?></div>
+                <div class="card-description">Total kategori barang</div>
+                <hr>
+                <div class="card-label">Total stok tersedia</div>
+                <div class="fw-semibold"><?= number_format($available_stock) ?> unit tercatat</div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="table-card h-100">
+                <div class="table-card-header"><h5>Stok Menipis</h5><a class="btn btn-sm btn-outline-secondary" href="<?= BASE_URL ?>/products/index.php">Lihat barang</a></div>
+                <?php if ($low_stock_products): ?>
+                <div class="table-responsive"><table class="table"><thead><tr><th>Kode</th><th>Barang</th><th class="text-end">Stok</th><th class="text-end">Min. stok</th></tr></thead><tbody>
+                <?php foreach ($low_stock_products as $product): ?><tr><td><?= htmlspecialchars($product['code']) ?></td><td><?= htmlspecialchars($product['name']) ?></td><td class="text-end"><?= (int) $product['stock'] ?> <?= htmlspecialchars($product['unit']) ?></td><td class="text-end"><?= (int) $product['minimum_stock'] ?></td></tr><?php endforeach; ?>
+                </tbody></table></div>
+                <?php else: ?><div class="empty-state">Tidak ada barang dengan stok menipis.</div><?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSAKSI TERBARU -->
 
     <div class="table-card">
 
