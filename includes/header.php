@@ -32,7 +32,7 @@ $user = $_SESSION['user'] ?? null;
 
     <link
         rel="stylesheet"
-        href="<?= BASE_URL ?>/assets/css/style.css"
+        href="<?= BASE_URL ?>/assets/css/style.css?v=7"
     >
 </head>
 

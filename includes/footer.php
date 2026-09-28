@@ -7,7 +7,7 @@
 ></script>
 
 <script
-    src="<?= BASE_URL ?>/assets/js/app.js"
+    src="<?= BASE_URL ?>/assets/js/app.js?v=4"
 ></script>
 
 </body>
