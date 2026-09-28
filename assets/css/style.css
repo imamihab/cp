@@ -727,3 +727,1039 @@ body {
     }
 
 }
+
+/* =========================================================
+   STOCK MANAGEMENT PAGE
+   Scoped specifically to .stock-page so it does not disturb
+   the existing dashboard, category, and product layouts.
+========================================================= */
+
+.stock-page {
+    padding-bottom: 40px;
+}
+
+.stock-page .stock-top-header {
+    margin-bottom: 28px;
+}
+
+.stock-page .stock-alert {
+    margin-bottom: 20px;
+    border-radius: 12px;
+}
+
+/* PAGE HEADER */
+.stock-page .stock-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.stock-page .stock-page-header h1 {
+    margin: 0 0 6px;
+    color: #101828;
+    font-size: 28px;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+.stock-page .stock-page-header p {
+    margin: 0;
+    color: #667085;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.stock-page .stock-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* ACTION BUTTONS */
+.stock-page .btn-stock {
+    min-width: 145px;
+    height: 43px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.stock-page .btn-stock:hover {
+    transform: translateY(-1px);
+}
+
+.stock-page .btn-stock-in {
+    background: #198754;
+    color: #fff;
+}
+
+.stock-page .btn-stock-in:hover {
+    background: #157347;
+    color: #fff;
+}
+
+.stock-page .btn-stock-out {
+    background: #dc3545;
+    color: #fff;
+}
+
+.stock-page .btn-stock-out:hover {
+    background: #bb2d3b;
+    color: #fff;
+}
+
+.stock-page .btn-stock-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* SUMMARY */
+.stock-page .stock-summary-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.stock-page .stock-summary-card {
+    min-width: 0;
+    min-height: 125px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #eaecf0;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 3px 12px rgba(16, 24, 40, .04);
+}
+
+.stock-page .summary-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.stock-page .summary-blue {
+    background: #eef4ff;
+    color: #2563eb;
+}
+
+.stock-page .summary-green {
+    background: #ecfdf3;
+    color: #039855;
+}
+
+.stock-page .summary-yellow {
+    background: #fffaeb;
+    color: #f79009;
+}
+
+.stock-page .summary-red {
+    background: #fef3f2;
+    color: #d92d20;
+}
+
+.stock-page .summary-content {
+    min-width: 0;
+}
+
+.stock-page .summary-content span {
+    display: block;
+    margin-bottom: 4px;
+    color: #667085;
+    font-size: 13px;
+}
+
+.stock-page .summary-content strong {
+    display: block;
+    color: #101828;
+    font-size: 27px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.stock-page .summary-content small {
+    display: block;
+    margin-top: 4px;
+    color: #98a2b3;
+    font-size: 11px;
+}
+
+/* SECTIONS */
+.stock-page .stock-section {
+    width: 100%;
+    margin-bottom: 22px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #eaecf0;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(16, 24, 40, .04);
+}
+
+.stock-page .stock-section-header {
+    padding: 19px 22px 16px;
+    border-bottom: 1px solid #eaecf0;
+}
+
+.stock-page .stock-section-header h2 {
+    margin: 0;
+    color: #101828;
+    font-size: 17px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.stock-page .stock-section-header p {
+    margin: 5px 0 0;
+    color: #667085;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* STATUS */
+.stock-page .stock-status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stock-page .stock-status-item {
+    min-width: 0;
+    padding: 20px 22px;
+    display: flex;
+    gap: 14px;
+    box-sizing: border-box;
+}
+
+.stock-page .stock-status-item + .stock-status-item {
+    border-left: 1px solid #eaecf0;
+}
+
+.stock-page .status-circle {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.stock-page .status-normal {
+    background: #ecfdf3;
+    color: #039855;
+}
+
+.stock-page .status-warning {
+    background: #fffaeb;
+    color: #f79009;
+}
+
+.stock-page .status-danger {
+    background: #fef3f2;
+    color: #d92d20;
+}
+
+.stock-page .status-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.stock-page .status-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.stock-page .status-title-row strong {
+    display: block;
+    color: #101828;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.stock-page .status-title-row small {
+    display: block;
+    margin-top: 3px;
+    color: #98a2b3;
+    font-size: 11px;
+}
+
+.stock-page .status-number {
+    white-space: nowrap;
+    color: #344054 !important;
+    font-size: 13px !important;
+}
+
+.stock-page .status-number span {
+    color: #98a2b3;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.stock-page .status-progress {
+    width: 100%;
+    height: 6px;
+    margin-top: 12px;
+    overflow: hidden;
+    background: #eaecf0;
+    border-radius: 999px;
+}
+
+.stock-page .status-progress-bar {
+    height: 100%;
+    min-width: 3px;
+    border-radius: 999px;
+}
+
+.stock-page .status-progress-normal { background: #12b76a; }
+.stock-page .status-progress-warning { background: #fdb022; }
+.stock-page .status-progress-danger { background: #f04438; }
+
+/* FILTER */
+.stock-page .stock-filter {
+    width: 100%;
+    padding: 20px 22px;
+    display: grid;
+    grid-template-columns: minmax(150px, 1.1fr) minmax(180px, 1.4fr) minmax(120px, .8fr) minmax(120px, .8fr) auto;
+    gap: 13px;
+    align-items: end;
+    box-sizing: border-box;
+}
+
+.stock-page .filter-field {
+    min-width: 0;
+}
+
+.stock-page .filter-field label {
+    display: block;
+    margin-bottom: 6px;
+    color: #344054;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.stock-page .filter-field .form-control,
+.stock-page .filter-field .form-select {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    background: #fff;
+    color: #344054;
+    font-family: inherit;
+    font-size: 13px;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+.stock-page .filter-field .form-control:focus,
+.stock-page .filter-field .form-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
+}
+
+.stock-page .filter-actions {
+    display: flex;
+    gap: 7px;
+}
+
+.stock-page .btn-filter,
+.stock-page .btn-reset {
+    height: 42px;
+    padding: 0 17px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.stock-page .btn-filter {
+    border: 0;
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+}
+
+.stock-page .btn-filter:hover { background: #1d4ed8; }
+
+.stock-page .btn-reset {
+    border: 1px solid #d0d5dd;
+    background: #fff;
+    color: #344054;
+}
+
+.stock-page .btn-reset:hover {
+    background: #f9fafb;
+    color: #101828;
+}
+
+/* HISTORY */
+.stock-page .stock-history-section {
+    overflow: hidden;
+}
+
+.stock-page .history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.stock-page .transaction-count {
+    padding: 6px 11px;
+    background: #f2f4f7;
+    border-radius: 999px;
+    color: #475467;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.stock-page .stock-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.stock-page .stock-table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: collapse;
+}
+
+.stock-page .stock-table thead th {
+    padding: 12px 15px;
+    background: #f8fafc;
+    border-bottom: 1px solid #eaecf0;
+    color: #475467;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.stock-page .stock-table tbody td {
+    padding: 13px 15px;
+    border-bottom: 1px solid #f2f4f7;
+    color: #344054;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.stock-page .stock-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.stock-page .stock-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.stock-page .transaction-date {
+    white-space: nowrap;
+}
+
+.stock-page .transaction-date small {
+    display: block;
+    margin-top: 2px;
+    color: #98a2b3;
+    font-size: 10px;
+}
+
+.stock-page .product-cell strong {
+    display: block;
+    color: #101828;
+    font-size: 12px;
+}
+
+.stock-page .product-cell span {
+    display: block;
+    margin-top: 2px;
+    color: #98a2b3;
+    font-size: 10px;
+}
+
+.stock-page .transaction-badge {
+    padding: 5px 9px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.stock-page .badge-in {
+    background: #ecfdf3;
+    color: #027a48;
+}
+
+.stock-page .badge-out {
+    background: #fef3f2;
+    color: #b42318;
+}
+
+.stock-page .quantity-in { color: #039855; }
+.stock-page .quantity-out { color: #d92d20; }
+
+/* EMPTY */
+.stock-page .stock-empty-state {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.stock-page .empty-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 14px;
+    background: #f2f4f7;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.stock-page .stock-empty-state h3 {
+    margin: 0;
+    color: #101828;
+    font-size: 16px;
+}
+
+.stock-page .stock-empty-state p {
+    margin: 6px 0 18px;
+    color: #98a2b3;
+    font-size: 12px;
+}
+
+.stock-page .empty-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* =========================================================
+   STOCK TRANSACTION MODAL
+   Modal berada di luar .stock-page, jadi selector modal
+   sengaja TIDAK menggunakan .stock-page di depannya.
+========================================================= */
+
+.stock-modal {
+    overflow: hidden !important;
+
+    width: 100%;
+    border: 0 !important;
+    border-radius: 16px !important;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 24px 60px rgba(16, 24, 40, .20);
+}
+
+
+/* MODAL DIALOG */
+
+#stockTransactionModal .modal-dialog {
+    width: auto;
+    max-width: 540px;
+
+    margin: 1.75rem auto;
+}
+
+#stockTransactionModal .modal-content {
+    width: 100%;
+
+    border: 0 !important;
+    border-radius: 16px !important;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 24px 60px rgba(16, 24, 40, .20);
+}
+
+
+/* MODAL HEADER */
+
+.stock-modal-header {
+    padding: 20px 22px;
+
+    border-bottom: 1px solid #eaecf0;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    background: #ffffff;
+}
+
+.stock-modal-header > div:first-child {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    min-width: 0;
+}
+
+.stock-modal-header h5 {
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 17px;
+    line-height: 1.3;
+
+    font-weight: 700;
+}
+
+.stock-modal-header p {
+    margin: 4px 0 0;
+
+    color: #667085;
+
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* MODAL ICON */
+
+.modal-type-icon {
+    width: 44px;
+    height: 44px;
+
+    min-width: 44px;
+
+    border-radius: 11px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+    line-height: 1;
+
+    font-weight: 700;
+}
+
+.modal-icon-in {
+    background: #ecfdf3;
+
+    color: #039855;
+}
+
+.modal-icon-out {
+    background: #fef3f2;
+
+    color: #d92d20;
+}
+
+
+/* CLOSE BUTTON */
+
+#stockTransactionModal .btn-close {
+    width: 32px;
+    height: 32px;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background-color: transparent;
+
+    opacity: .55;
+
+    box-shadow: none;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+}
+
+#stockTransactionModal .btn-close:hover {
+    background-color: #f2f4f7;
+
+    opacity: 1;
+}
+
+
+/* MODAL BODY */
+
+.stock-modal-body {
+    padding: 22px;
+}
+
+
+/* MODAL FIELD */
+
+.modal-field {
+    margin-bottom: 17px;
+}
+
+.modal-field:last-child {
+    margin-bottom: 0;
+}
+
+.modal-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #344054;
+
+    font-size: 13px;
+    line-height: 1.4;
+
+    font-weight: 600;
+}
+
+.modal-field label span {
+    color: #d92d20;
+}
+
+
+/* INPUT & SELECT */
+
+.stock-modal .modal-field .form-control,
+.stock-modal .modal-field .form-select {
+    width: 100%;
+
+    min-height: 43px;
+
+    padding: 9px 12px;
+
+    border: 1px solid #d0d5dd !important;
+
+    border-radius: 8px !important;
+
+    background: #ffffff !important;
+
+    color: #344054;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    box-shadow: none !important;
+
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.stock-modal .modal-field .form-control::placeholder {
+    color: #98a2b3;
+
+    opacity: 1;
+}
+
+.stock-modal .modal-field .form-control:focus,
+.stock-modal .modal-field .form-select:focus {
+    border-color: #2563eb !important;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, .10) !important;
+}
+
+
+/* TEXTAREA */
+
+.stock-modal .modal-field textarea.form-control {
+    min-height: 90px;
+
+    resize: vertical;
+}
+
+
+/* CURRENT STOCK */
+
+.current-stock-box {
+    display: none;
+
+    margin: -2px 0 17px;
+
+    padding: 11px 13px;
+
+    border: 1px solid #eaecf0;
+
+    border-radius: 9px;
+
+    background: #f8fafc;
+}
+
+.current-stock-box.show {
+    display: block;
+}
+
+.current-stock-box span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #667085;
+
+    font-size: 11px;
+}
+
+.current-stock-box strong {
+    display: block;
+
+    color: #101828;
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+
+/* MODAL FOOTER */
+
+.stock-modal-footer {
+    padding: 15px 22px;
+
+    border-top: 1px solid #eaecf0;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 9px;
+
+    background: #ffffff;
+}
+
+
+/* MODAL BUTTONS */
+
+.stock-modal-footer .btn-modal-cancel,
+.stock-modal-footer .btn-modal-submit {
+    min-height: 40px;
+
+    padding: 0 17px;
+
+    border-radius: 8px !important;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+.stock-modal-footer .btn-modal-cancel {
+    border: 1px solid #d0d5dd !important;
+
+    background: #ffffff !important;
+
+    color: #344054 !important;
+}
+
+.stock-modal-footer .btn-modal-cancel:hover {
+    background: #f9fafb !important;
+
+    border-color: #98a2b3 !important;
+}
+
+.stock-modal-footer .btn-modal-submit {
+    border: 0 !important;
+
+    color: #ffffff !important;
+}
+
+.stock-modal-footer .btn-submit-in {
+    background: #198754 !important;
+}
+
+.stock-modal-footer .btn-submit-in:hover {
+    background: #157347 !important;
+}
+
+.stock-modal-footer .btn-submit-out {
+    background: #dc3545 !important;
+}
+
+.stock-modal-footer .btn-submit-out:hover {
+    background: #bb2d3b !important;
+}
+
+
+/* BACKDROP */
+
+.modal-backdrop.show {
+    opacity: .55;
+}
+
+
+/* MODAL RESPONSIVE */
+
+@media (max-width: 576px) {
+
+    #stockTransactionModal .modal-dialog {
+        width: auto;
+        max-width: none;
+
+        margin: 12px;
+    }
+
+    .stock-modal-header {
+        padding: 17px;
+    }
+
+    .stock-modal-body {
+        padding: 17px;
+    }
+
+    .stock-modal-footer {
+        padding: 13px 17px;
+    }
+
+    .stock-modal-footer .btn-modal-cancel,
+    .stock-modal-footer .btn-modal-submit {
+        flex: 1;
+    }
+
+}
+
+/* STOCK RESPONSIVE */
+@media (max-width: 1200px) {
+    .stock-page .stock-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stock-page .stock-filter {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stock-page .filter-actions {
+        grid-column: span 2;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 992px) {
+    .stock-page .stock-status-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stock-page .stock-status-item + .stock-status-item {
+        border-top: 1px solid #eaecf0;
+        border-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .stock-page .stock-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .stock-page .stock-action-buttons {
+        width: 100%;
+    }
+
+    .stock-page .stock-action-buttons .btn-stock {
+        flex: 1;
+    }
+
+    .stock-page .stock-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stock-page .stock-filter {
+        grid-template-columns: 1fr;
+    }
+
+    .stock-page .filter-actions {
+        grid-column: auto;
+        width: 100%;
+    }
+
+    .stock-page .filter-actions .btn-filter,
+    .stock-page .filter-actions .btn-reset {
+        flex: 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .stock-page .stock-page-header h1 {
+        font-size: 24px;
+    }
+
+    .stock-page .stock-action-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .stock-page .stock-action-buttons .btn-stock {
+        width: 100%;
+    }
+
+    .stock-page .stock-summary-card {
+        padding: 17px;
+    }
+
+    .stock-page .stock-section-header {
+        padding: 17px;
+    }
+
+    .stock-page .stock-filter {
+        padding: 17px;
+    }
+
+    .stock-page .history-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .stock-page .empty-actions {
+        flex-direction: column;
+    }
+}
